@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Todos from './Todos';
+import AddForm from './AddTodo';
 
 class App extends Component {
   constructor(props) {
@@ -16,6 +17,7 @@ class App extends Component {
       ]
     };
     this.deleteTodo = this.deleteTodo.bind(this);
+    this.addTodo = this.addTodo.bind(this);
   }
 
   deleteTodo(id) {
@@ -27,11 +29,18 @@ class App extends Component {
     });
   }
 
+  addTodo(newTodo) {
+    newTodo.id = Math.random();
+    const newTodoList = [...this.state.todos, newTodo];
+    this.setState({ todos: newTodoList });
+  }
+
   render() {
     return (
       <div className='App container'>
         <h1 className='center blue-text'>Todo's</h1>
         <Todos todos={this.state.todos} deleteTodo={this.deleteTodo} />
+        <AddForm addTodo={this.addTodo} />
       </div>
     );
   }
